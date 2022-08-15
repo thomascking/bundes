@@ -86,11 +86,18 @@ while key != 27 and ret:
     key = cv2.waitKey(1)
 
     # if spacebar is pressed
-    if key == 32:
+    if key == ord('.'):
         # move to the next frame
         ret, frame = cap.read()
         frame_count += 1
-        markings.append([])
+        if len(markings) <= frame_count:
+            markings.append([])
+    elif key == ord(','):
+        frame_count -= 1
+        if frame_count < 0:
+            frame_count = 0
+        cap.set(cv2.CAP_PROP_POS_FRAMES, frame_count + 1)
+        ret, frame = cap.retrieve()
     elif key == ord('1'):
         current_mode = TEAM_ONE
     elif key == ord('2'):
