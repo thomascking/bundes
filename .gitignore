@@ -2,3 +2,5 @@ input/**
 
 **/*.mp4
 **/*.jpg
+
+venv/
