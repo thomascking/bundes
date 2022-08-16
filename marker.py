@@ -44,7 +44,20 @@ def mark_object(event, x, y, flags, param):
             'y': y,
             'type': current_mode,
         })
-
+    if event == cv2.EVENT_RBUTTONDOWN:
+        # find the nearest marking
+        temp_mark = {}
+        dist = 0
+        for m in markings[frame_count]:
+            print(m)
+            print(m.get('x'))
+            if dist == 0:
+                dist = (m.get('x')-x)**2 + (m.get('y')-y)**2
+                temp_mark = m
+            elif ((m.get('x')-x)**2 + (m.get('y')-y)**2 < dist):
+                dist = (m.get('x')-x)**2 + (m.get('y')-y)**2
+                temp_mark = m
+        markings[frame_count].remove(temp_mark)
 
 # intitalize window to display frames
 cv2.namedWindow('frame')
